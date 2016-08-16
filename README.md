@@ -9,8 +9,8 @@ Funcionalidades pretendidas:
       - Objetivo Educacional Geral
       - Apresentação/Justificativa
       - Público Alvo
-      - Autores
-      - Equipe
+      - Autores (enviar convites)
+      - Equipe (enviar convites)
       - Templates
   - Estrutura:
     - Adicionar Unidades de Aprendizagem:
@@ -33,9 +33,10 @@ Funcionalidades pretendidas:
         - Gabarito
         - Pontuação
   - Previsualizar
-    - Storyboard
-    - Curso
+      - Storyboard
+      - Curso
+      - Ficha de Créditos
   - Exportar
-    - Storyboard
-    - Curso (HTML, SCORM, PPU);
+     - Storyboard (PDF);
+      - Curso (PDF, HTML, SCORM, PPU);
       
