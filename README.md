@@ -37,6 +37,6 @@ Funcionalidades pretendidas:
       - Curso
       - Ficha de Créditos
   - Exportar
-     - Storyboard (PDF);
+      - Storyboard (PDF);
       - Curso (PDF, HTML, SCORM, PPU);
       
