@@ -11,9 +11,10 @@
 require_once('../../config.php');
 require_once($CFG->dirroot.'/course/lib.php');
 require_once($CFG->dirroot.'/local/mdlautor/libs/locallib.php');
-require_once($CFG->libdir.'/formslib.php');
+require_once($CFG->dirroot.'/local/mdlautor/config.php');
+//require_once($CFG->libdir.'/formslib.php');
 
-
+if (count($_POST)>0){executa_lib_post();}
 
 //$courseid = optional_param('course', SITEID, PARAM_INT);
 //$view = optional_param('view', 'upcoming', PARAM_ALPHA);
@@ -46,9 +47,7 @@ if ($USER->username != 'guest'){
 			if (file_exists($CFG->dirroot.'/local/menu.php')) {require_once($CFG->dirroot.'/local/menu.php');} 
 			require_once($CFG->dirroot.'/local/mdlautor/menu.php');
 
-			//echo $OUTPUT->heading_with_help(get_string('meuscursos', 'local_mdlautor'), 'meuscursos', $component = 'local_mdlautor', $icon = '', $iconalt = '', $level = 3, $classnames = null);
-
-			if ($_GET['aba2']=='autor' or !isset($_GET['aba2'])){require_once($CFG->dirroot.'/local/mdlautor/include/include_autor.php');}
+			if ($_GET['aba']=='autor' or !isset($_GET['aba'])){require_once($CFG->dirroot.'/local/mdlautor/include/include_autor.php');}
 
 		echo html_writer::end_tag('div');
 }else{

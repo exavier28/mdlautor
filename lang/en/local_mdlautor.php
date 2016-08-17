@@ -33,8 +33,18 @@ $string['enabled_desc'] = 'Enable Moodle author';
 $string['settings'] = 'Settings';
 $string['meuscursos'] = 'My courses';
 $string['meuscursos_help'] = "This is the list of courses or learning objects that you are the author or part of its construction";
+$string['inicio'] = 'Start';
+$string['nome'] = 'Name';
+$string['oai_type'] = 'Type';
 
+$string['curso'] = 'Course';
+$string['objetodeaprendizagem'] = 'Learning Object';
+$string['recursoeducacionalaberto'] = 'Open Educational Resource';
+$string['aplicativooffline'] = 'Application Offline';
+$string['apostila'] = 'Handout';
+$string['videoaula'] = 'Video Lesson';
 
+$string['descricaobreve'] = 'short description';
 
 
 
