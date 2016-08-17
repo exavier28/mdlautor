@@ -1,4 +1,4 @@
-# mdlautor
+# moodle/local/mdlautor
 O módulo MdlAutor é uma ferramenta projetada para auxiliar o professor autor no planejamento e pré-produção do seu curso no formato de Objeto de Aprendizagem Interoperável (OAI) e também na publicação aos aluno e público aberto.
 
 É um módulo complementar do Moodle projetado para as versões 2.8 ou posterior, do típo Módulo Local.
