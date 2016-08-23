@@ -10,7 +10,9 @@
         <FIELD NAME="nome" TYPE="char" LENGTH="250" NOTNULL="true" SEQUENCE="false"/>
         <FIELD NAME="type" TYPE="char" LENGTH="50" NOTNULL="true" SEQUENCE="false"/>
         <FIELD NAME="descricaobreve" TYPE="text" NOTNULL="true" SEQUENCE="false"/>
-        <FIELD NAME="id_user_criador" TYPE="int" LENGTH="9" NOTNULL="true" SEQUENCE="false"/>		
+        <FIELD NAME="imgcurso" TYPE="char" LENGTH="250" NOTNULL="true" SEQUENCE="false"/>		
+        <FIELD NAME="id_user_criador" TYPE="char" LENGTH="50" NOTNULL="false" SEQUENCE="false"/>	
+        <FIELD NAME="ativo" TYPE="int" LENGTH="1" NOTNULL="true" SEQUENCE="false"/>		
       </FIELDS>
       <KEYS>
         <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
