@@ -200,7 +200,7 @@ class output_oai_form_edit extends moodleform {
 			$entry->attachments = $draftitemid;
 			file_prepare_standard_filemanager($entry, 'imgcurso', $definitionoptions, 5, 'user', 'draft', $entry->id);
 			echo "<br>";  print_r($entry);
-			$mform->addElement('filemanager', 'imgcurso_filemanager', get_string('attachment', 'moodle'), null, $definitionoptions);
+			//$mform->addElement('filemanager', 'imgcurso_filemanager', get_string('attachment', 'moodle'), null, $definitionoptions);
 			//$mform->set_data($entry);
 
 			

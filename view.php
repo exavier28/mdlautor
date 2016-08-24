@@ -14,9 +14,21 @@ require_once($CFG->dirroot.'/local/mdlautor/libs/locallib.php');
 require_once($CFG->dirroot.'/local/mdlautor/config.php');
 //require_once($CFG->libdir.'/formslib.php');
 
+defined('MOODLE_INTERNAL') || die();
+
 if (count($_POST)>0){executa_lib_post();}
 
 require_course_login($course);
+//$context = get_context_instance(CONTEXT_MODULE, 1);
+$context = context_module::instance(2);
+//require_capability('local/mdlautor', $context);
+//$context = context_system::instance();
+print_r($context); echo "<br><br>";
+//$PAGE->set_context($context);
+//$PAGE->set_cm(1);
+print_r($PAGE);
+
+
 
 $title = get_string('pluginname', 'local_mdlautor');
 $pagetitle = get_string('titulo', 'local_mdlautor');
