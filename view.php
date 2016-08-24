@@ -14,13 +14,13 @@ require_once($CFG->dirroot.'/local/mdlautor/libs/locallib.php');
 require_once($CFG->dirroot.'/local/mdlautor/config.php');
 //require_once($CFG->libdir.'/formslib.php');
 
-defined('MOODLE_INTERNAL') || die();
 
 if (count($_POST)>0){executa_lib_post();}
 
 require_course_login($course);
-//$context = get_context_instance(CONTEXT_MODULE, 1);
-$context = context_module::instance(2);
+//has_capability('mod/mdlautor:managefiles', $context, $userid=2, TRUE); 
+//$context = context_module::instance(1);
+$context = context::instance_by_id(1);
 //require_capability('local/mdlautor', $context);
 //$context = context_system::instance();
 print_r($context); echo "<br><br>";

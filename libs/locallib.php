@@ -152,8 +152,10 @@ function get_curso_by_id($idoa){
 class output_oai_form_edit extends moodleform { 
 		function definition() {
 			global $CFG;
-			$fileinfo = return_object_file_image_by_id(516723633);
-			print_r($fileinfo);
+			$fileinfo = return_object_file_image_by_id(787475586);
+			$context = context::instance_by_id(5);
+			print_r($context); echo "<br>";
+			echo "fileinfo="; print_r($fileinfo);
 			
 			$get_curso_by_id = get_curso_by_id($_GET['idoa']);
 			//print_r($get_curso_by_id);
@@ -178,29 +180,23 @@ class output_oai_form_edit extends moodleform {
 			
 			$mform->addElement('hidden', 'acao', 'crianovooai');
 			$mform->setType('acao', PARAM_TEXT);		
-			
-			//$definitionoptions = Array ( ['maxfiles'] => '1',['maxbytes'] => '0', ['subdirs'] => '0', ['accepted_types'] => Array ( ['0'] => '.jpg', ['1'] => '.gif', ['2'] => '.png' ), ['context'] => 5 ) ;
-			//$definitionoptions = array('maxfiles' => '1', 'maxbytes'=>'0', 'trusttext'=>false, 'noclean'=>true, 'accepted_types' => '*');
-			//$definitionoptions['context'] = Array (['_id:protected'] => '5', ['_contextlevel:protected'] => '50', ['_instanceid:protected'] => '2', ['_path:protected'] => '/1/3/26',['_depth:protected'] => '3') ;
-			//$definitionoptions['subdirs'] = 0;
-			
-			//print_r($overviewfilesoptions);
-			$definitionoptions = array('subdirs'=>false, 'maxfiles'=>1, 'maxbytes'=>$maxbytes, 'accepted_types' => '*');
+		
+			$definitionoptions = array('subdirs'=>false, 'maxfiles'=>10, 'maxbytes'=>$maxbytes, 'accepted_types' => '*');
 			//$entry = file_prepare_standard_editor($entry, 'definition', $definitionoptions, 5,'user', 'draft', 1831055);
 			//$entry = file_prepare_standard_filemanager($entry, 'imgcurso_filemanager', $definitionoptions, 5,'user', 'draft', 1831055);
             //$mform->addElement('filemanager', 'imgcurso_filemanager', get_string('courseoverviewfiles'), null, $definitionoptions);
 			
-			$entry = $fileinfo;
+			//$entry = $fileinfo;
 			$entry->id = $fileinfo->itemid;
-			$entry->definition = '';
-			$entry->format = '*';
-			//$draftitemid = file_get_submitted_draft_itemid('imgcurso');
-			//echo "<br>";  print_r($draftitemid);
+			//$entry->definition = '';
+			//$entry->format = '*';
+			//$entry->id = null;
+			
+			$mform->addElement('filemanager', 'imgcurso_filemanager', get_string('attachment', 'moodle'), null, $definitionoptions);			
+			$draftitemid = file_get_submitted_draft_itemid('imgcurso');
 			file_prepare_draft_area($draftitemid, 5, 'user', 'draft', $entry->id, $definitionoptions);
 			$entry->attachments = $draftitemid;
-			file_prepare_standard_filemanager($entry, 'imgcurso', $definitionoptions, 5, 'user', 'draft', $entry->id);
 			echo "<br>";  print_r($entry);
-			//$mform->addElement('filemanager', 'imgcurso_filemanager', get_string('attachment', 'moodle'), null, $definitionoptions);
 			//$mform->set_data($entry);
 
 			

@@ -30,5 +30,6 @@ $plugin->version  = 2016081601;
 $plugin->requires = 2014111011;
 $plugin->release = '1.0 (Build: 2016081600)';
 $plugin->maturity = MATURITY_ALPHA;
+$plugin->type = 'local';
 $plugin->component = 'local_mdlautor';
 $plugin->cron = 1; // Frequencia de tempo em segundos.
