@@ -175,11 +175,11 @@ class output_oai_form_edit extends moodleform {
 			//Vamos também recuperar os records do contexto do file (mdl_context)
 			$valueoa = get_curso_by_id($_GET['idoa']);
 			$fileinfo = return_object_file_image_by_id($valueoa->imgcurso);
+			//Quando não houver imgcurso será apresentada uma imagem padrão que está em /local/mdlautor/pix/imgcurso.jpg
+			//que é um arquivo público e fora do mecanismo de contextos do Moodle, por isso a linha abaixo 
+			//deve ser ignorada caso não haja imgcurso definida, nesse caso $fileinfo->filename retornará um elemento vazio
 			if (strlen($fileinfo->filename)>0){$context = context::instance_by_id($fileinfo->contextid);}
-			
-			//$url = new moodle_url('/mdlautor/view.php');
-			//$PAGE->set_url($url);
-						
+					
 			$mform = $this->_form; 
 			
 			$title = ucfirst(get_string('nome', 'local_mdlautor'));
@@ -204,9 +204,12 @@ class output_oai_form_edit extends moodleform {
 				$editoroptions = array('maxfiles' => 1, 'maxbytes'=>$CFG->maxbytes, 'trusttext'=>false, 'noclean'=>true);
 				$editoroptions['accepted_types'] = Array([0] => '.jpg', [1] => '.gif', [2] => '.png');			
 				$editoroptions['context'] = $context;
-				$editoroptions['subdirs'] = $fileinfo->filepath;		
+				$editoroptions['subdirs'] = $fileinfo->filepath;	
+			//Recupera um arquivo na tabela mdl_files
 			$entry = file_prepare_standard_filemanager($entryid, 'imgcurso', $editoroptions, $context, $fileinfo->component, $fileinfo->filearea, $fileinfo->itemid);
+			//Carregar o arquivo para visualizador do campo do formulário 
 			$this->set_data($entry);
+			//Carrega o campo de formulário do tipo filemanager
 			$mform->addElement('filemanager', 'imgcurso_filemanager', get_string('courseoverviewfiles'), null, $editoroptions);					
 			
 			$mform->addElement('hidden', 'acao', 'editaoai');

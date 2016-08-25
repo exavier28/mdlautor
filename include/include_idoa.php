@@ -33,6 +33,15 @@ echo 	"<div class='autorrigth'>";
 						$output_oai_form_edit = new output_oai_form_edit();
 						$output_oai_form_edit->display();
 			}
+			
+			if ($_GET['content']=='listacolaboradores'){
+				$colaboredores = $GLOBALS["colaboredores"];
+				print_r($colaboredores);
+				foreach ($colaboredores as $value){ 
+					$colaboredores_output[$value] = get_string($value, 'local_mdlautor');
+				}
+				print_r($colaboredores_output);
+			}
 
 echo 	"</div>";
 

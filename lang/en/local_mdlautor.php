@@ -52,6 +52,27 @@ $string['videoaula_sigla'] = 'Video';
 
 $string['descricaobreve'] = 'short description';
 
-
+$string['organizador'] = "Organizer";
+$string['designgrafico'] = "Graphic Design";
+$string['designinstrucional'] = "Instructional Design / ODL script writer";
+$string['ilustrador'] = "Illustrator";
+$string['roteirista']  = "Writer";
+$string['analistadesistema'] = "System Analyst";
+$string['apoiotecnico'] = "Technical Support";
+$string['arquitetodesoftware'] = "Software Architect";
+$string['cinegrafistaoperadordecamera'] = "Videographer / Camera Operator";
+$string['consultor'] = "Consultant";
+$string['coordenadoracademico'] = "Academic Coordinator";
+$string['coordenadordeproducaopedagogicoeducacional'] = "Production Coordinator / Teaching / Education";
+$string['coordenadorgeralprodutorexecutivo'] = "General Coordinator / Executive Producer";
+$string['desenvolvedorprogramador'] = "Developer / Programmer";
+$string['desenvolvedordejogosgamedisigner'] = "Developer donate Level / Level Designer";
+$string['desenvolvedordoedivelleveldesigner'] = "Desenvolvedor doe Nível / Level Designer";
+$string['desenvolvedorwebdisigner'] = "Web Developer / Web Disigner";
+$string['diretordeaudiovisual'] = "Director of Audiovisual";
+$string['editordeaudiovisual'] = "Audiovisual Editor";
+$string['engenheirodesoftware'] = "Software Engineer";
+$string['engenheirodesomprodutordeaudio'] = "Sound Engineer / Producer Audio";
+$string['especialistanarecnicaconteudista'] = "Specialist in the Technical / Content";
 
 

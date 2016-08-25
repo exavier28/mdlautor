@@ -12,9 +12,9 @@ if (isset($_GET['idoa'])){
 			else {echo "<li class=''      ><a title='Planejamento' href='../mdlautor/view.php?aba=planejamento&content=&idoa=".$_GET['idoa']."'>Planejamento</a></li>";}		
 	
 			
-		if ($_GET['aba']=='equipe')
-				 {echo "<li class='active'><a title='Equipe' href='../mdlautor/view.php?aba=equipe&content=&idoa=".$_GET['idoa']."'>Equipe</a></li>";} 
-			else {echo "<li class=''      ><a title='Equipe' href='../mdlautor/view.php?aba=equipe&content=&idoa=".$_GET['idoa']."'>Equipe</a></li>";}	
+		if ($_GET['aba']=='colaboradores')
+				 {echo "<li class='active'><a title='Colaboradores' href='../mdlautor/view.php?aba=colaboradores&content=listacolaboradores&idoa=".$_GET['idoa']."'>Colaboradores</a></li>";} 
+			else {echo "<li class=''      ><a title='Colaboradores' href='../mdlautor/view.php?aba=colaboradores&content=listacolaboradores&idoa=".$_GET['idoa']."'>Colaboradores</a></li>";}	
 
 		if ($_GET['aba']=='export'){
 				  echo "<li class='active'><a title='Exportar' href='../mdlautor/view.php?aba=export&content=&idoa=".$_GET['idoa']."'>Exportar</a></li>";} 

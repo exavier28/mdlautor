@@ -2,7 +2,7 @@
 
 /////////////////////////////////////////////////////////////////////////////
 //                                                                         //
-// NOTICE OF COPYRIGHT: CAMPUS VIRTUAL DA FIOCRUS, ACESSO ABERTO           //
+// CAMPUS VIRTUAL DA FIOCRUS, ACESSO ABERTO           //
 //                                                                         //
 /////////////////////////////////////////////////////////////////////////////
 

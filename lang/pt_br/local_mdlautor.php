@@ -52,7 +52,28 @@ $string['videoaula_sigla'] = 'Vídeo';
 
 $string['descricaobreve'] = 'breve descrição';
 
-
+$string['organizador'] = "Organizador";
+$string['designgrafico'] = "Design Gráfico";
+$string['designinstrucional'] = "Design Instrucional / Roterista de EAD";
+$string['ilustrador'] = "Ilustrador";
+$string['roteirista']  = "Roteirista";
+$string['analistadesistema'] = "Analista de Sistema";
+$string['apoiotecnico'] = "Apoio Técnico";
+$string['arquitetodesoftware'] = "Arquiteto de Software";
+$string['cinegrafistaoperadordecamera'] = "Cinegrafista/Operador de Câmera";
+$string['consultor'] = "Consultor";
+$string['coordenadoracademico'] = "Coordenador Acadêmico";
+$string['coordenadordeproducaopedagogicoeducacional'] = "Coordenador de Produção / Pedagógico / Educacional";
+$string['coordenadorgeralprodutorexecutivo'] = "Coordenador Geral / Produtor Executivo";
+$string['desenvolvedorprogramador'] = "Desenvolvedor / Programador";
+$string['desenvolvedordejogosgamedisigner'] = "Desenvolvedor de Jogos / Game Disigner";
+$string['desenvolvedordoedivelleveldesigner'] = "Desenvolvedor doe Nível / Level Designer";
+$string['desenvolvedorwebdisigner'] = "Desenvolvedor Web / Web Disigner";
+$string['diretordeaudiovisual'] = "Diretor de Audiovisual";
+$string['editordeaudiovisual'] = "Editor de Audiovisual";
+$string['engenheirodesoftware'] = "Engenheiro de Software";
+$string['engenheirodesomprodutordeaudio'] = "Engenheiro de Som / Produtor de Audio";
+$string['especialistanarecnicaconteudista'] = "Especialista na Técnica / Conteúdista";
 
 
 
