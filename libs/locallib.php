@@ -1,7 +1,5 @@
 <?php
 
-require_once($CFG->libdir.'/formslib.php');
-
 class add_oai_form extends moodleform {
     function definition() {
         global $CFG;
@@ -26,8 +24,6 @@ class add_oai_form extends moodleform {
         $mform->setType('acao', PARAM_TEXT);		
 		
 		$mform->addElement('filepicker', 'imgcurso', get_string('file'), null, array('maxbytes' => '', 'accepted_types' => '*'));
-		//$success = $mform->save_file('imgcurso', $fullpath, $override);
-		//$storedfile = $mform->save_stored_file('imgcurso', ...);
 		
         $this->add_action_buttons(true, $unregisterlabel);
 		
@@ -36,9 +32,8 @@ class add_oai_form extends moodleform {
 
 
 function executa_lib_post(){
-	global $DB,$USER;
-	//print_r($_POST);
-	//$DB->set_debug(true);
+	global $DB,$USER,$CFG;
+
 	if ($_POST['acao'] == 'crianovooai'){
 		$table = 'local_mdlautor_oai';
 		$dataobject = array("nome"=>"".$_POST['nome']."", 
@@ -48,9 +43,27 @@ function executa_lib_post(){
 							"imgcurso"=>"".$_POST['imgcurso']."",		
 							"ativo"=>1
 							);
-		$DB->insert_record($table, $dataobject, $returnid=true, $bulk=false);
+		$id = $DB->insert_record($table, $dataobject, $returnid=true, $bulk=false);
+		$urltogo = $CFG->wwwroot.'/local/mdlautor/view.php?idoa='.$id;
+		redirect($urltogo);
 	}
-	//$DB->set_debug(false);
+	
+		if ($_POST['acao'] == 'editaoai'){
+		$table = 'local_mdlautor_oai';
+		$dataobject = array("nome"=>"".$_POST['nome']."", 
+							"type"=>"".$_POST['oai_type']."", 
+							"descricaobreve"=>"".$_POST['descricaobreve']."", 
+							"id_user_criador"=>"".$USER->id."",
+							"imgcurso"=>"".$_POST['imgcurso_filemanager']."",		
+							"ativo"=>1,
+							"id"=>$_POST['id']
+							);
+		$DB->update_record($table, $dataobject, $bulk=false);
+		$urltogo = $CFG->wwwroot.'/local/mdlautor/view.php?idoa='.$_POST['id'];
+		redirect($urltogo);
+	}
+	
+	
 }
 
 
@@ -60,8 +73,12 @@ function get_file_image_by_id($itemid,$class){
 		//Aqui vamos recuperar os registros do file no bano de dados
 		//Está sendo gerado 2 linha na tabela para cada arquivo, sendo que a primeira linha apresenta todos os registros completos, usaremos essa.
 		$table = "files";
-		$file_record = $DB->get_record($table, array('itemid'=>''.$itemid.''));
+		$file_records = $DB->get_records($table, array('itemid'=>''.$itemid.''));
 
+		//Não sei por qual motivo mas os registros da tabela mdl_files são duplicados
+		//Aqui vamos selecionar a linha que possui filename é diferente de um ponto '.'
+		foreach ($file_records as $value){ if ($value->filename!='.'){$file_record = $value;} 	}		
+		
  		$fs = get_file_storage();
 
 		$fileinfo = array(
@@ -74,7 +91,6 @@ function get_file_image_by_id($itemid,$class){
 		 
 		$file = $fs->get_file($fileinfo['contextid'], $fileinfo['component'], $fileinfo['filearea'],
 							  $fileinfo['itemid'], $fileinfo['filepath'], $fileinfo['filename']);
-				
 		
 		if($file){
 			$contents = base64_encode($file->get_content());		
@@ -91,7 +107,9 @@ function return_object_file_image_by_id($itemid){
 		//Aqui vamos recuperar os registros do file no bano de dados
 		//Está sendo gerado 2 linha na tabela para cada arquivo, sendo que a primeira linha apresenta todos os registros completos, usaremos essa.
 		$table = "files";
-		$file_record = $DB->get_record($table, array('itemid'=>''.$itemid.''));
+		$file_records = $DB->get_records($table, array('itemid'=>''.$itemid.''));
+		
+		foreach ($file_records as $value){ if ($value->filename!='.'){$file_record = $value;} 	}		
 		
  		$fs = get_file_storage();
 
@@ -152,63 +170,50 @@ function get_curso_by_id($idoa){
 class output_oai_form_edit extends moodleform { 
 		function definition() {
 			global $CFG;
-			$fileinfo = return_object_file_image_by_id(787475586);
-			$context = context::instance_by_id(5);
-			print_r($context); echo "<br>";
-			echo "fileinfo="; print_r($fileinfo);
+			//Essa função merece ser bem comentada devido à sua complexidade
+			//Primeiramente vamos recuperar os records do objeto de aprendizagem (mdl_local_mdlautor_oai), do file (mdl_files) 
+			//Vamos também recuperar os records do contexto do file (mdl_context)
+			$valueoa = get_curso_by_id($_GET['idoa']);
+			$fileinfo = return_object_file_image_by_id($valueoa->imgcurso);
+			if (strlen($fileinfo->filename)>0){$context = context::instance_by_id($fileinfo->contextid);}
 			
-			$get_curso_by_id = get_curso_by_id($_GET['idoa']);
-			//print_r($get_curso_by_id);
-			//echo "<br>";
-			//print_r(return_object_file_image_by_id($get_curso_by_id->imgcurso));			
-			
+			//$url = new moodle_url('/mdlautor/view.php');
+			//$PAGE->set_url($url);
+						
 			$mform = $this->_form; 
 			
 			$title = ucfirst(get_string('nome', 'local_mdlautor'));
 			$mform->addElement('text', 'nome', $title, 'maxlength="100" size="25" ');
-			$mform->setDefault('nome', ''.$get_curso_by_id->nome.'');
+			$mform->setDefault('nome', ''.$valueoa->nome.'');
 			
 			$oai_types = $GLOBALS["oai_types"];
 			foreach ($oai_types as $value){ $oai_types_output[$value] = get_string($value, 'local_mdlautor'); 	}
 			$title = ucfirst(get_string('oai_type', 'local_mdlautor'));
 			$mform->addElement('select', 'oai_type', $title, $oai_types_output, $attributes);
-			$mform->getElement('oai_type')->setSelected(''.$get_curso_by_id->type.'');
+			$mform->getElement('oai_type')->setSelected(''.$valueoa->type.'');
 			
 			$title = ucfirst(get_string("descricaobreve", "local_mdlautor"));
 			$mform->addElement('textarea', 'descricaobreve', $title, 'wrap="virtual" rows="6" cols="70"');
-			$mform->setDefault('descricaobreve', ''.$get_curso_by_id->descricaobreve.'');
+			$mform->setDefault('descricaobreve', ''.$valueoa->descricaobreve.'');
 			
 			$mform->addElement('hidden', 'acao', 'crianovooai');
-			$mform->setType('acao', PARAM_TEXT);		
-		
-			$definitionoptions = array('subdirs'=>false, 'maxfiles'=>10, 'maxbytes'=>$maxbytes, 'accepted_types' => '*');
-			//$entry = file_prepare_standard_editor($entry, 'definition', $definitionoptions, 5,'user', 'draft', 1831055);
-			//$entry = file_prepare_standard_filemanager($entry, 'imgcurso_filemanager', $definitionoptions, 5,'user', 'draft', 1831055);
-            //$mform->addElement('filemanager', 'imgcurso_filemanager', get_string('courseoverviewfiles'), null, $definitionoptions);
+			$mform->setType('acao', PARAM_TEXT);	
 			
-			//$entry = $fileinfo;
-			$entry->id = $fileinfo->itemid;
-			//$entry->definition = '';
-			//$entry->format = '*';
-			//$entry->id = null;
+			//Aqui temos que definir as opções do editor, o cotexto do editor deve ser o mesmo do file
+			//Antes de abrir o editor filemanager é necessário recuperar a imagem com a função $this->set_data(file_prepare_standard_filemanager())
+				$editoroptions = array('maxfiles' => 1, 'maxbytes'=>$CFG->maxbytes, 'trusttext'=>false, 'noclean'=>true);
+				$editoroptions['accepted_types'] = Array([0] => '.jpg', [1] => '.gif', [2] => '.png');			
+				$editoroptions['context'] = $context;
+				$editoroptions['subdirs'] = $fileinfo->filepath;		
+			$entry = file_prepare_standard_filemanager($entryid, 'imgcurso', $editoroptions, $context, $fileinfo->component, $fileinfo->filearea, $fileinfo->itemid);
+			$this->set_data($entry);
+			$mform->addElement('filemanager', 'imgcurso_filemanager', get_string('courseoverviewfiles'), null, $editoroptions);					
 			
-			$mform->addElement('filemanager', 'imgcurso_filemanager', get_string('attachment', 'moodle'), null, $definitionoptions);			
-			$draftitemid = file_get_submitted_draft_itemid('imgcurso');
-			file_prepare_draft_area($draftitemid, 5, 'user', 'draft', $entry->id, $definitionoptions);
-			$entry->attachments = $draftitemid;
-			echo "<br>";  print_r($entry);
-			//$mform->set_data($entry);
-
+			$mform->addElement('hidden', 'acao', 'editaoai');
+			$mform->setType('acao', PARAM_TEXT);
 			
-			//$mform->addElement('filepicker', 'imgcurso', get_string('file'), null, array('maxbytes' => $maxbytes, 'accepted_types' => '*'));
-					//$return_object_file_image_by_id = return_object_file_image_by_id($get_curso_by_id->imgcurso);
-					//$textfieldoptions = array('trusttext'=>true, 'subdirs'=>true, 'maxfiles'=>$maxfiles,'maxbytes'=>$maxbytes, //'context'=>$return_object_file_image_by_id->contextid);
-					//$mform->addElement('filemanager', 'imgcurso', get_string('file'),null, $textfieldoptions);
-					//$data = file_prepare_standard_editor($data, 'imgcurso', $textfieldoptions, //$return_object_file_image_by_id->contextid,$return_object_file_image_by_id->component, $return_object_file_image_by_id->filearea, //$return_object_file_image_by_id->itemid);
-								
-
-			//$success = $mform->save_file('imgcurso', $fullpath, $override);
-			//$storedfile = $mform->save_stored_file('imgcurso', ...);
+			$mform->addElement('hidden', 'id', $valueoa->id);
+			$mform->setType('acao', PARAM_TEXT);			
 			
 			$this->add_action_buttons(true, $unregisterlabel);
 			

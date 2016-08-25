@@ -10,24 +10,15 @@
 
 require_once('../../config.php');
 require_once($CFG->dirroot.'/course/lib.php');
+require_once($CFG->libdir.'/formslib.php');
 require_once($CFG->dirroot.'/local/mdlautor/libs/locallib.php');
 require_once($CFG->dirroot.'/local/mdlautor/config.php');
-//require_once($CFG->libdir.'/formslib.php');
-
 
 if (count($_POST)>0){executa_lib_post();}
 
 require_course_login($course);
-//has_capability('mod/mdlautor:managefiles', $context, $userid=2, TRUE); 
 //$context = context_module::instance(1);
-$context = context::instance_by_id(1);
-//require_capability('local/mdlautor', $context);
-//$context = context_system::instance();
-print_r($context); echo "<br><br>";
-//$PAGE->set_context($context);
-//$PAGE->set_cm(1);
-print_r($PAGE);
-
+//$context = context::instance_by_id(1);
 
 
 $title = get_string('pluginname', 'local_mdlautor');

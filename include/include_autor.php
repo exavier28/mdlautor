@@ -32,9 +32,6 @@ echo 	"<div class='autorrigth'>";
 		output_bloco_curso_by_id($value->id);		
 		
 		}
-
-				
-		
 	}
 	
 	
